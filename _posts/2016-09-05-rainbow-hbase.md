@@ -8,10 +8,11 @@ tags:  rainbow hbase
 * content
 {:toc}
 
-## Hbase彩虹相关设计
+## 基于HBase的彩虹表MD5哈希密码解密
 
-### MEID
- - 前提 ：环境为保德集群(4个HRegionServer(24cores&64Rom)),数据量约6T(5.5T)
+ - 集群 ：2台namenode（高可用），4台datanode，24核心，64G内存
+ - 数据量 ：约6T（5.98T）
+ - hbase组件 ：4个HRegionServer服务（每一个datanode上起一个HRegionServer）
  - 设计 ：
    1. 4个HRegionServer平均分担6T的数据，每个HRegionServer平均分担1.5T数据
 
@@ -42,14 +43,14 @@ tags:  rainbow hbase
   - 建表语句
 
 ```
-create 'meidrainbow','identity',{ NUMREGIONS => 600, SPLITALGO => 'HexStringSplit' }
+create 'rainbow','identity',{ NUMREGIONS => 600, SPLITALGO => 'HexStringSplit' }
+alter 'rainbow', NAME => 'identity', VERSIONS => 1 
 ```
 
    - 其他
     - 时间版本设置为1
     - key为MD5值，天然均匀分布
-    - memstore可根据实际服务器配置调整
-    - BlockCache采用默认的64M,可根据实际服务器配置调整
+    - 列名称为1，减少key的索引数据量
    - 时间复杂度
      - 如果它还在MemStore里
 
@@ -61,19 +62,7 @@ create 'meidrainbow','identity',{ NUMREGIONS => 600, SPLITALGO => 'HexStringSpli
        
    - 测试（MEID RainBow）
      - 总记录数：113568996276
-     - 响应时间：小于1s
-   - 部分截图如下
+     - 请求响应时间：小于1s
+   - 截图如下
 
-
-
-![1](http://120.236.169.50:88/imc/userprofile/uploads/4de188a3da491c7cce3d4465e74e52e3/1.png)
-
-
-![2](http://120.236.169.50:88/imc/userprofile/uploads/5782e979d59830ba99e6624766be25d1/2.png)
-
-
-![3](http://120.236.169.50:88/imc/userprofile/uploads/d0cd308e22a00bb25b369e5a8d6b3441/3.png)
-
-
-![4](http://120.236.169.50:88/imc/userprofile/uploads/845e5d8df38c8b51dfe9b8b61af2a7c8/4.png)
-
+![1](/img/1.png)
