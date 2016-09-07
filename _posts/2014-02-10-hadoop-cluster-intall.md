@@ -26,6 +26,8 @@ excerpt: 记录Hadoop培训教材编写。
 
 Hadoop是一个开源的分布式处理的软件框架，包括多个子项目，最为主要的是HDFS和MapReduce，到目前为止已经有多个发行版本，下表给出了几个代表性的Hadoop版本的比较:
 
+![hadoop-10](/img/hadoop-10.png)
+
 本实验中，我们选择Hadoop1.2.1版本，它是一个稳点的版本，其安装文件可以到http://hadoop.apache.org/releaseshtml#Download下载，也可以在实验附录的工具文件中找到Hadoop-1.2.1.tar.gz，所有的安装部署基于Ubuntu12.04操作系统,请在实验前自行安装好系统，并获得root权限。
 
 ## Hadoop伪分布式环境搭建
