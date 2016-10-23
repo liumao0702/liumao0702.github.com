@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "MapReduce Shuffle OOM"
-date:   2014-01-06 17:00:00
+date:   2016-06-19 21:00:00
 categories: cloudera hadoop mapreduce
 tags: mapreduce shuffle OOM
 excerpt: MapReduce-Shuffle-OOM"
